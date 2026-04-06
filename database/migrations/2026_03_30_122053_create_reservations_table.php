@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained();
+            $table->string('code_order')->unique();
+            $table->enum('status', ['pending', 'ready', 'delivered', 'cancelled']);
+            $table->decimal('total_amount', 10, 2);
+            $table->timestamp('expiry_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

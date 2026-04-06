@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('oem')->unique();
+            $table->string('name');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->text('compatibility_notes')->nullable();
+            $table->json('technical_specs')->nullable();
+            $table->decimal('price_buy', 10, 2);
+            $table->decimal('price_sell', 10, 2);
+            $table->integer('stock');
+            $table->integer('min_stock')->default(5);
+            $table->string('image_main')->nullable();
+            $table->enum('status', ['disponible', 'agotado', 'descontinuado'])->default('disponible');
+            $table->softDeletes(); // Para eliminación lógica
             $table->timestamps();
         });
     }

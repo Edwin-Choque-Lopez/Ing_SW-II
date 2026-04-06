@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('store_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('nit')->nullable();
+            $table->text('address')->nullable();
+            $table->string('city')->default('Oruro');
+            $table->string('phone_whatsapp')->nullable();
+            $table->string('email')->nullable();
+            $table->string('logo_path')->nullable();
+            $table->text('footer_text')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
