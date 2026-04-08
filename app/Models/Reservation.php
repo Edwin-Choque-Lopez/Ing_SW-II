@@ -10,10 +10,21 @@ class Reservation extends Model
    use SoftDeletes;
 
     protected $fillable = [
-        'client_id', 'code_order', 'status', 'subtotal', 'tax_amount', 
-        'total_amount', 'admin_notes', 'expiry_date'
+        'client_id',
+        'code_order',
+        'status_id',
+        'admin_notes',
+        'total_amount',
+        'expiry_date',
     ];
 
-    public function client() { return $this->belongsTo(Client::class); }
-    public function items() { return $this->hasMany(ReservationItem::class); }
+    public function client() { 
+        return $this->belongsTo(Client::class, 'client_id', 'id'); 
+    }
+    public function items() { 
+        return $this->hasMany(ReservationItem::class, 'reservation_id', 'id'); 
+    }
+    public function status() { 
+        return $this->belongsTo(StatusReservation::class, 'status_id', 'id'); 
+    }
 }

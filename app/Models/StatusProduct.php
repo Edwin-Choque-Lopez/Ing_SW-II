@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; // Importante
 
-class Category extends Model
+class StatusProduct extends Model
 {
     use SoftDeletes;
-
     protected $fillable = [
-        'name', 
-        'description_short',
+        'name',
+        'description',
     ];
-
-    public function products() {
-        return $this->hasMany(Product::class, 'category_id', 'id');
+    public function products() { 
+        return $this->hasMany(Product::class, 'status_id', 'id'); 
     }
 }

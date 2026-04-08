@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('oem')->unique()->nullable();
             $table->string('name');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('status_id')->constrained('status_products')->onDelete('cascade')->nullable();
             $table->text('compatibility_notes')->nullable();
             $table->text('technical_specs')->nullable();
             $table->decimal('price_buy', 10, 2);
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->integer('stock');
             $table->integer('min_stock')->default(5);
             $table->string('image_main')->nullable();
-            $table->enum('status', ['disponible', 'agotado', 'descontinuado'])->default('disponible');
+            //$table->enum('status', ['disponible', 'agotado', 'descontinuado'])->default('disponible');
             $table->softDeletes(); // Para eliminación lógica
             $table->timestamps();
         });

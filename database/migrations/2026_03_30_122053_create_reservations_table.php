@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained();
             $table->string('code_order')->unique();
-            $table->enum('status', ['pending', 'ready', 'delivered', 'cancelled']);
+            $table->foreignId('status_id')->constrained('status_reservations')->onDelete('cascade');
+            //$table->enum('status', ['pending', 'ready', 'delivered', 'cancelled']);
+            $table->text('admin_notes')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->timestamp('expiry_date');
             $table->softDeletes();

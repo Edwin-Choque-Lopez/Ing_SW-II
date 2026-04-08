@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; // Importante
 
-class Client extends Model
+class StatusReservation extends Model
 {
-    use SoftDeletes;
+    use softDeletes;
     protected $fillable = [
-        'ci',
-        'full_name',
-        'phone',
-        'email',
+        'name',
+        'description',
     ];
-
     public function reservations() { 
-        return $this->hasMany(Reservation::class,'client_id', 'id'); 
+        return $this->hasMany(Reservation::class, 'status_id', 'id'); 
     }
-
 }
