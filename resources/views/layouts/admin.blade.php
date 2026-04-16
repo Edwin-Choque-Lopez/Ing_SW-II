@@ -92,7 +92,7 @@
                                 </li>
                                 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('setting.create') }}" class="submenu-link">
+                                    <a href="{{ route('setting.index') }}" class="submenu-link">
                                     <i class="bi bi-gear-fill"></i>
                                     Ajustes</a>
                                     

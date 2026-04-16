@@ -3,41 +3,76 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        return view('system_configuration.index_setting');
+        $categorias = Category::paginate(5);
+        return view('system_configuration.index_setting', compact('categorias'));
     }
-    public function create()
+    public function CreateCategory()
     {
         return view('system_configuration.add_setting');
     }
-    public function CategoriesStore(Request $request)
+    public function StoreCategory(Request $request)
     {
         $request->validate([
             'name' => [
                         'required',
                         'string',
                         'max:255',
-                        'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/u'
+                        'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ,. \s]+$/u'
                     ],
             'cat_description' => [
                         'nullable',
                         'string',
-                        'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/u'
+                        'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ,. \s]+$/u'
                  ],
         ]);
 
+        Category::create([
+            'name' => $request->name,
+            'description_short' => $request->cat_description,
+        ]);
+        return redirect()->route('setting.index')->with('success', 'Categoría creada exitosamente.');
+    }
+    public function EditCategory($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('system_configuration.editcategorie', compact('category'));
+    }
+    public function UpdateCategory(Request $request, $id)
+    {
+        return redirect()->route('setting.index')->with('success', 'Categoría creada exitosamente.');
+    
+        /*$request->validate([
+            'name' => [
+                        'required',
+                        'string',
+                        'max:255',
+                        'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ,. \s]+$/u'
+                    ],
+            'cat_description' => [
+                        'nullable',
+                        'string',
+                        'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ,. \s]+$/u'
+                 ],
+        ]);
+        
 
-        // Aquí puedes guardar la categoría en la base de datos
-        // Por ejemplo:
-        // Category::create([
-        //     'name' => $request->name,
-        //     'technical_specs' => $request->technical_specs,
-        // ]);
-
-        //return redirect()->route('setting.index')->with('success', 'Categoría creada exitosamente.');
+        $category = Category::findOrFail($id);
+        $category->update([
+            'name' => $request->name,
+            'description_short' => $request->cat_description,
+        ]);
+        return redirect()->route('setting.index')->with('success', 'Categoría actualizada exitosamente.');
+    */}
+    public function DeleteCategory($id)
+    {
+        /*$category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->route('setting.index')->with('success', 'Categoría eliminada exitosamente.');*/
     }
 }

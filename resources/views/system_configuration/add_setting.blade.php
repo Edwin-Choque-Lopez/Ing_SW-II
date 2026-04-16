@@ -42,7 +42,7 @@
                                                     <label for="oem" class="form-label">Nombre de la categoria</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text @error('name') is-invalid @enderror "><i class="bi bi-pen"></i></span>
-                                                        <input name="name" type="text" class="form-control" id="oem" placeholder="Nombre de la categoria"
+                                                        <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="oem" placeholder="Nombre de la categoria"
                                                         required>
                                                         @error('name')
                                                             <span class="invalid-feedback" role="alert">
@@ -54,9 +54,9 @@
                                                 <div class="col-md-12 mb-12">
                                                     <label for="Especificaciones" class="form-label">Descripción</label>
                                                     <div class="form-group with-title mb-3">
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="cat_description" @error('cat_description') is-invalid @enderror></textarea>
+                                                        <textarea class="form-control @error('cat_description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="cat_description" ></textarea>
                                                         <label>Redacte una descripción de la categoria</label>
-                                                        @error('technical_specs')
+                                                        @error('cat_description')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>

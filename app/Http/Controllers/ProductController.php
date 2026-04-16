@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        return view('products.listproducts');
+        $products = Product::paginate(10);
+        return view('products.index', compact('products'));
     }
 
     public function create()

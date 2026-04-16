@@ -17,7 +17,7 @@
         <div class="card-content">
             <div class="card-body">
                 <h4 class="card-title">Formulario de registro
-                     <a href="{{ route('categories.create') }}" style="float: right;" type="button" class="btn btn-outline-primary" type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"> Crear nueva categoria</i></a>
+                     <a href="{{ route('products.create') }}" style="float: right;" type="button" class="btn btn-outline-primary" type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"> Crear nuevo producto</i></a>
                 </h4>
                 <h6 class="card-subtitle">Rellena los campos para registrar un nuevo producto</h6>
             </div>
@@ -28,19 +28,24 @@
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>OEM</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Acciones</th>
+                            <th>Precio de compra</th>
+                            <th>Precio de venta</th>
+                            <th>Stock</th>
                         </tr>
                     </thead>
                     <tbody>
-                            @foreach($categorias as $categoria)
+                            @foreach($products as $product)
                             <tr>
-                                <td>{{ $categoria->name }}</td>
-                                <td>{{ $categoria->description_short }}</td>
+                                <td>{{ $product->oem }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->price_buy }}</td>
+                                <td>{{ $product->price_sell }}</td>
+                                <td>{{ $product->stock }}</td>
                                 <td class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('categories.edit', $categoria->id) }}" type="button" class="btn btn-outline-primary" type="button" class="btn btn-outline-primary"><i class="bi bi-pen"></i></a>
-                                    <form action="{{ route('categories.destroy', $categoria->id) }}" method="POST" class="d-inline">
+                                    <a href="{{ route('products.edit', $product->id) }}" type="button" class="btn btn-outline-primary" type="button" class="btn btn-outline-primary"><i class="bi bi-pen"></i></a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger" class="btn btn-outline-primary" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')"><i class="bi bi-trash"></i></button>
@@ -50,9 +55,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                @if ($categorias->hasPages())
+                @if ($products->hasPages())
                     <div class="d-flex justify-content-left">
-                        {{ $categorias->links('pagination::bootstrap-5') }}
+                        {{ $products->links('pagination::bootstrap-5') }}
                     </div>
                 @endif
 
