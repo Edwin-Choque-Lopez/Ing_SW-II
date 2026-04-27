@@ -21,6 +21,30 @@
                 <h6 class="card-subtitle">Solo rellene los campos del formulario de su interes.</h6>
             </div>
             <div class="card-body">
+                @if ($errors->any())
+                    <div id="contenedor-errores">
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-light-danger color-danger alert-dismissible show fade">
+                                <i class="bi bi-exclamation-circle"></i> 
+                                {{ $error }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <script>
+                        setTimeout(function() {
+                            const contenedor = document.getElementById('contenedor-errores');
+                            if (contenedor) {
+                                const alertas = contenedor.querySelectorAll('.alert');
+                                alertas.forEach(alerta => {
+                                    const bsAlert = new bootstrap.Alert(alerta);
+                                    bsAlert.close();
+                                });
+                            }
+                        }, 10000);
+                    </script>
+                @endif
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-4">
                         <div class="list-group" role="tablist">
@@ -32,118 +56,72 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-8 mt-1">
                         <div class="tab-content text-justify" id="nav-tabContent">
-                            <div class="tab-pane active show" id="category_form" role="tabpanel" aria-labelledby="list-home-list">
+                            <div class="tab-pane" id="category_form" role="tabpanel" aria-labelledby="list-home-list">
                                 <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label for="oem" class="form-label">Nombre de la categoria</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text @error('name') is-invalid @enderror "><i class="bi bi-pen"></i></span>
-                                                        <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="oem" placeholder="Nombre de la categoria"
-                                                        required>
-                                                        @error('name')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Nombre de la categoria</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-pen"></i></span>
+                                                    <input name="nombre_categoria" type="text" class="form-control" placeholder="Nombre de la categoria"
+                                                    required>
                                                 </div>
-                                                <div class="col-md-12 mb-12">
-                                                    <label for="Especificaciones" class="form-label">Descripción</label>
-                                                    <div class="form-group with-title mb-3">
-                                                        <textarea class="form-control @error('cat_description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="cat_description" ></textarea>
-                                                        <label>Redacte una descripción de la categoria</label>
-                                                        @error('cat_description')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div> 
-                                                <div class="col-md-12 mb-12">
-                                                    <div class="form-group">
-                                                        <button class="btn btn-primary" type="submit">Registrar categoria</button>  
-                                                        <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
-                                                    </div>
-                                                </div>  
                                             </div>
+                                            <div class="col-md-12 mb-12">
+                                                <label class="form-label">Descripción</label>
+                                                <div class="form-group with-title mb-3">
+                                                    <textarea class="form-control" rows="3" name="descripcion_corta" ></textarea>
+                                                    <label>Redacte una descripción de la categoria</label>
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-12 mb-12">
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary" type="submit">Registrar categoria</button>  
+                                                    <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
+                                                </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane" id="brand_form" role="tabpanel" aria-labelledby="list-profile-list">
-                                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                             <div class="tab-pane active show" id="brand_form" role="tabpanel" aria-labelledby="list-home-list">
+                                <form action="{{ route('brands.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-lg-9 col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label for="oem" class="form-label">Numero oem</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text"><i class="bi bi-pen"></i></span>
-                                                        <input name="oem" type="text" class="form-control" id="oem" placeholder="Numero oem"
-                                                        @error('oem') is-invalid @enderror required>
-                                                        @error('oem')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label for="nombre" class="form-label">Nombre del producto</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text"><i class="bi bi-justify"></i></span>
-                                                        <input name="name" type="text" class="form-control" id="nombre" placeholder="Nombre del producto"
-                                                        @error('name') is-invalid @enderror required>
-                                                        @error('name')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Nombre de la marca</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-pen"></i></span>
+                                                    <input name="nombre_marca" type="text" class="form-control" placeholder="Nombre de la marca" required>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Pais de origen</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-justify"></i></span>
+                                                    <input name="pais_origen" type="text" class="form-control" placeholder="Pais de origen de la marca" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-12">
+                                                <label class="form-label"></label>
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary" type="submit">Registrar marca</button>  
+                                                    <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
+                                                </div>
+                                            </div> 
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane" id="status_reservatin_form" role="tabpanel" aria-labelledby="list-messages-list">Ut ut
-                                do pariatur aliquip aliqua aliquip exercitation do nostrud commodo
-                                reprehenderit
-                                aute ipsum
-                                voluptate.
-                                Irure Lorem et laboris nostrud amet cupidatat cupidatat anim do ut velit
-                                mollit
-                                consequat enim
-                                tempor.
-                                Consectetur est minim nostrud nostrud consectetur irure labore voluptate
-                                irure.
-                                Ipsum id Lorem sit
-                                sint voluptate est pariatur eu ad cupidatat et deserunt culpa sit eiusmod
-                                deserunt. Consectetur et
-                                fugiat anim do eiusmod aliquip nulla laborum elit adipisicing pariatur
-                                cillum.
+                            <div class="tab-pane" id="status_reservation_form" role="tabpanel" aria-labelledby="list-messages-list">
+                                
                             </div>
-                            <div class="tab-pane" id="status_product_form" role="tabpanel" aria-labelledby="list-settings-list">Irure
-                                enim occaecat labore sit qui aliquip reprehenderit amet velit. Deserunt
-                                ullamco
-                                ex elit nostrud ut
-                                dolore nisi officia magna sit occaecat laboris sunt dolor. Nisi eu minim
-                                cillum
-                                occaecat aute est
-                                cupidatat aliqua labore aute occaecat ea aliquip sunt amet. Aute mollit
-                                dolor ut
-                                exercitation irure
-                                commodo non amet consectetur quis amet culpa. Quis ullamco nisi amet qui
-                                aute
-                                irure eu. Magna labore
-                                dolor quis ex labore id nostrud deserunt dolor eiusmod eu pariatur culpa
-                                mollit
-                                in irure</div>
+                            <div class="tab-pane" id="status_product_form" role="tabpanel" aria-labelledby="list-settings-list">
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

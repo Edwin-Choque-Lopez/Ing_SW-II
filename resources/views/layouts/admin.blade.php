@@ -81,16 +81,10 @@
                             <ul class="submenu ">
                                 
                                 <li class="submenu-item  ">
-                                    <a href="component-accordion.html" class="submenu-link">
+                                    <a href="{{ route('profile.index') }}" class="submenu-link">
                                     <i class="bi bi-person-raised-hand"></i>
                                     Perfil</a>
                                 </li>
-                                <li class="submenu-item">
-                                    <a href="component-badge.html" class="submenu-link">
-                                    <i class="bi bi-building"></i>
-                                    Datos Institucionales</a>
-                                </li>
-                                
                                 <li class="submenu-item  ">
                                     <a href="{{ route('setting.index') }}" class="submenu-link">
                                     <i class="bi bi-gear-fill"></i>
