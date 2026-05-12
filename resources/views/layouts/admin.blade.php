@@ -22,7 +22,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="#">Admin</a>
+                            <a href="#">Hercules</a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -58,71 +58,79 @@
                     </div>
                 </div>
                 <div class="sidebar-menu">
-                    <ul class="menu">
-                                                
-                        <li
-                            class="sidebar-item active ">
+                    <ul class="menu">                      
+                        <li class="sidebar-item active ">
                             <a href="{{ route('home') }}" class='sidebar-link'>
                                 <i class="bi bi-person"></i>
                                 <span>{{ Auth::user()->name }}</span>
                             </a>
-                            
                         </li>
-                        
-                        <li class="sidebar-title">Ajustes</li>
-                        
-                        <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-gear"></i>
-                                <span>Configuraciones</span>
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-speedometer2"></i>
+                                <span>Gestión de Sistema</span>
                             </a>
-                            
                             <ul class="submenu ">
-                                
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('profile.index') }}" class="submenu-link">
-                                    <i class="bi bi-person-raised-hand"></i>
-                                    Perfil</a>
-                                </li>
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('setting.index') }}" class="submenu-link">
-                                    <i class="bi bi-gear-fill"></i>
-                                    Ajustes</a>
-                                    
-                                </li>
-                                
-                                <li class="submenu-item  ">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                        <i class="bi bi-door-open-fill"></i>
-                                        Cerrar sesión
+                                <li class="submenu-item">
+                                    <a href="{{ route('systemManagement.index') }}" class="submenu-link">
+                                        <i class="bi bi-sliders2"></i>
+                                        <span>Catálogo</span>
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="#" class="submenu-link">
+                                        <i class="bi bi-gear"></i>
+                                        <span>Parámetros</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="sidebar-title">Productos</li>
-                        <li class="sidebar-item has-sub">
+                        
+                        <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-box-seam"></i>
+                                <i class="bi bi-people-fill"></i>
+                                <span>Usuarios</span>
+                            </a>
+                            
+                            <ul class="submenu ">
+                                <li class="submenu-item">
+                                    <a href="#" class="submenu-link">
+                                        <i class="bi bi-person"></i>
+                                        <span>Usuarios</span>
+                                    </a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="#" class="submenu-link">
+                                        <i class="bi bi-person-vcard"></i>
+                                        <span>Miembros</span>
+                                    </a>
+                                </li>
+                                
+                                <li class="submenu-item  ">
+                                    <a href="#" class="submenu-link">
+                                        <i class="bi bi-person-fill"></i>
+                                        <span>Clientes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> 
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-cart"></i>
                                 <span>Productos</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('products.index') }}" class="submenu-link">
-                                    <i class="bi bi-box-seam"></i>
-                                    Listado de productos</a>
-                                </li>
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('products.create') }}" class="submenu-link">
-                                    <i class="bi bi-plus-square-fill"></i>
-                                    Crear producto</a>      
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <i class="bi bi-door-open-fill"></i>
+                                <span>Cerrar sesión</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li> 
                     </ul>
                 </div>
             </div>
@@ -151,17 +159,16 @@
                 @yield('content')
             </div>
 
-            <!--<footer>
+            <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2023 &copy; Mazer</p>
+                        <p><i class="bi bi-laptop"></i> INF 2720 A </p>
                     </div>
                     <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            by <a href="https://saugi.me">Saugi</a></p>
+                        <p>Proyecto de Ingeniera de Software I</p>
                     </div>
                 </div>
-            </footer>-->
+            </footer>
         </div>
     </div>
     <script src={{url("/assets/static/js/components/dark.js")}}></script>
@@ -171,6 +178,22 @@
     <!-- Need: Apexcharts -->
     <script src={{url("/assets/extensions/apexcharts/apexcharts.min.js")}}></script>
     <script src={{url("/assets/static/js/pages/dashboard.js")}}></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session()->has('icon') && session()->has('message'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    position: 'center',
+                    icon: @json(session('icon')),
+                    title: @json(session('title')),
+                    text: @json(session('message')),
+                    showConfirmButton: false,
+                    timer: 5000
+                });
+            });
+        </script>
+    @endif
 </body>
 
 </html>

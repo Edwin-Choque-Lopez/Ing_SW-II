@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -9,14 +11,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/profile', [App\Http\Controllers\StoreProfileController::class, 'index'])->name('profile.index');
-Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
-Route::get('/setting/create', [App\Http\Controllers\SettingController::class, 'CreateCategory'])->name('categories.create');
-Route::post('/setting/categories', [App\Http\Controllers\SettingController::class, 'StoreCategory'])->name('categories.store');
-Route::put('/setting/categories/{id}', [App\Http\Controllers\SettingController::class, 'UpdateCategory'])->name('categories.update');
-Route::delete('/setting/categories/{id}', [App\Http\Controllers\SettingController::class, 'DeleteCategory'])->name('categories.destroy');
-Route::post('/setting/brands',[App\Http\Controllers\SettingController::class, 'StoreBrand'])->name('brands.store');
-Route::put('/setting/brands/{id}', [App\Http\Controllers\SettingController::class, 'UpdateBrand'])->name('brands.update');
-Route::delete('/setting/brands/{id}', [App\Http\Controllers\SettingController::class, 'DeleteBrand'])->name('brands.destroy');
-Route::resource('/products', App\Http\Controllers\ProductController::class);
 
+Route::get('/catalog', [App\Http\Controllers\SystemManagementController::class, 'index'])->name('systemManagement.index');
+
+Route::post('/category/store', [App\Http\Controllers\SystemManagementController::class, 'storeCategory'])->name('category.create');
+Route::put('/category/update/{id}', [App\Http\Controllers\SystemManagementController::class, 'updateCategory'])->name('category.update');
+Route::delete('/category/delete/{id}', [App\Http\Controllers\SystemManagementController::class, 'destroyCategory'])->name('category.destroy');
+
+Route::post('/brand/store', [App\Http\Controllers\SystemManagementController::class, 'storeBrand'])->name('brands.create');
+Route::put('/brand/update/{id}', [App\Http\Controllers\SystemManagementController::class, 'updateBrand'])->name('brands.update');
+Route::delete('/brand/delete/{id}', [App\Http\Controllers\SystemManagementController::class, 'destroyBrand'])->name('brands.destroy');

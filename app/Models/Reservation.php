@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // Importante
+use Illuminate\Database\Eloquent\SoftDeletes; 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reservation extends Model
 {
    use SoftDeletes;
-
+   protected $table = 'reservations';
     protected $fillable = [
         'client_id',
         'code_order',
@@ -18,13 +20,16 @@ class Reservation extends Model
         'expiry_date',
     ];
 
-    public function client() { 
+    public function client(): BelongsTo
+    { 
         return $this->belongsTo(Client::class, 'client_id', 'id'); 
     }
-    public function items() { 
+    public function ReservationItems(): HasMany
+    { 
         return $this->hasMany(ReservationItem::class, 'reservation_id', 'id'); 
     }
-    public function status() { 
+    public function status(): BelongsTo
+    { 
         return $this->belongsTo(StatusReservation::class, 'status_id', 'id'); 
     }
 }

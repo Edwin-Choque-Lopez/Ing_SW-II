@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; // Importante
 class StoreProfile extends Model
 {
-    use softDeletes; // Importante
+    use softDeletes; 
     protected $table = 'store_profiles';
     protected $fillable = [
         'name',
