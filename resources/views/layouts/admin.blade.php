@@ -78,7 +78,7 @@
                                     </a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="#" class="submenu-link">
+                                    <a href="{{route('parameters.index')}}" class="submenu-link">
                                         <i class="bi bi-gear"></i>
                                         <span>Parámetros</span>
                                     </a>
