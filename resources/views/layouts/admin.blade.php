@@ -22,7 +22,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="#">Hercules</a>
+                            <a href="#">Ignacio</a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -74,7 +74,7 @@
                                 <li class="submenu-item">
                                     <a href="{{ route('systemManagement.index') }}" class="submenu-link">
                                         <i class="bi bi-sliders2"></i>
-                                        <span>Catálogo</span>
+                                        <span>Administracioón Catálogo</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item">
@@ -88,34 +88,33 @@
                         
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-people-fill"></i>
-                                <span>Usuarios</span>
+                                <i class="bi bi-building"></i>
+                                <span>Casa Ignacio</span>
                             </a>
                             
                             <ul class="submenu ">
                                 <li class="submenu-item">
-                                    <a href="#" class="submenu-link">
-                                        <i class="bi bi-person"></i>
-                                        <span>Usuarios</span>
+                                    <a href="{{route('profile')}}" class="submenu-link">
+                                        <i class="bi bi-file-earmark-person"></i>
+                                        <span>Pefil</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="#" class="submenu-link">
-                                        <i class="bi bi-person-vcard"></i>
-                                        <span>Miembros</span>
-                                    </a>
-                                </li>
-                                
-                                <li class="submenu-item  ">
-                                    <a href="#" class="submenu-link">
-                                        <i class="bi bi-person-fill"></i>
-                                        <span>Clientes</span>
+                                    <a href="{{route('company')}}" class="submenu-link">
+                                        <i class="bi bi-file-earmark-text"></i>
+                                        <span>Institución</span>
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{route('clients.index')}}" class="sidebar-link">
+                                <i class="bi bi-person"></i>
+                                <span>Clientes</span>
+                            </a>
                         </li> 
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{route('products.index')}}" class="sidebar-link">
                                 <i class="bi bi-cart"></i>
                                 <span>Productos</span>
                             </a>
@@ -162,10 +161,10 @@
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p><i class="bi bi-laptop"></i> INF 2720 A </p>
+                        <p><i class="bi bi-laptop"></i> INF 3811 A </p>
                     </div>
                     <div class="float-end">
-                        <p>Proyecto de Ingeniera de Software I</p>
+                        <p>Proyecto de Ingeniera de Software II</p>
                     </div>
                 </div>
             </footer>

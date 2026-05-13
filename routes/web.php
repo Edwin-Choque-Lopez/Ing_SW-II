@@ -31,3 +31,17 @@ Route::delete('/productstatus/delete/{id}', [App\Http\Controllers\ParameterContr
 Route::post('/reservtionstatus/store', [App\Http\Controllers\ParameterController::class, 'storeReservationStatus'])->name('reservationStatus.create');
 Route::put('/reservationstatus/update/{id}', [App\Http\Controllers\ParameterController::class, 'updateReservationStatus'])->name('reservationStatus.update');
 Route::delete('/reservationstatus/delete/{id}', [App\Http\Controllers\ParameterController::class, 'destroyReservationStatus'])->name('reservationStatus.destroy');  
+
+
+Route::get('/company',[App\Http\Controllers\CompanyController::class,'InstitutionData'])->name('company');
+Route::put('/company/edit/{id}',[App\Http\Controllers\CompanyController::class,'dataEditing'])->name('company.edit');
+
+Route::get('/profile',[App\Http\Controllers\ProfileController::class,'profileData'])->name('profile');
+Route::put('/profile/edit/{id}',[App\Http\Controllers\ProfileController::class,'dataEditing'])->name('profile.edit');
+
+Route::get('/clients',[App\Http\Controllers\ClientsController::class,'index'])->name('clients.index');
+Route::post('/clients/store',[App\Http\Controllers\ClientsController::class,'storeClient'])->name('client.store');
+Route::put('/client/edti/{id}',[App\Http\Controllers\ClientsController::class,'updateClient'])->name('client.update');
+Route::delete('/client/delete/{id}',[App\Http\Controllers\ClientsController::class,'clientDestroy'])->name('client.destroy');
+
+Route::get('/products',[App\Http\Controllers\ProductsController::class,'index'])->name('products.index');
