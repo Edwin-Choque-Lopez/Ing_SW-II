@@ -44,4 +44,4 @@ Route::post('/clients/store',[App\Http\Controllers\ClientsController::class,'sto
 Route::put('/client/edti/{id}',[App\Http\Controllers\ClientsController::class,'updateClient'])->name('client.update');
 Route::delete('/client/delete/{id}',[App\Http\Controllers\ClientsController::class,'clientDestroy'])->name('client.destroy');
 
-Route::get('/products',[App\Http\Controllers\ProductsController::class,'index'])->name('products.index');
+Route::resource('/products',App\Http\Controllers\ProductsController::class);

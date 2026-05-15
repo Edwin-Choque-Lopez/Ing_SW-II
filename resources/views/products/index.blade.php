@@ -1,0 +1,146 @@
+@extends('layouts.admin')
+@section('title')
+    <h3>Productos registrados en el Sistema</h3>
+    <p class="text-subtitle text-muted">En este apartado puede gestionar la información de los productos registrados en el sistema</p>
+@endsection
+@section('navegacion')
+    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Productos</li>
+        </ol>
+    </nav>
+@endsection
+@section('content')
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0">PRODUCTOS</h4>
+                <!-- Botón para abrir el modal de creación de producto -->
+                <a href="{{route('products.create')}}" class="btn btn-outline-primary"> Registrar Producto</a>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>OEM</th>
+                                    <th>Nombre</th>
+                                    <th>Precio Compra</th>
+                                    <th>Precio Venta</th>
+                                    <th>Stock</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($products as $product)
+                                    <tr>
+                                        <td>{{ $product->oem }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>Bs. {{ number_format($product->price_buy, 2) }}</td>
+                                        <td>Bs. {{ number_format($product->price_sell, 2) }}</td>
+                                        <td>
+                                            <span class="badge {{ $product->stock <= $product->min_stock ? 'bg-danger' : ($product->stock <= $product->min_stock * 1.5 ? 'bg-warning' : 'bg-success') }}">
+                                                {{ $product->stock }}
+                                                @if($product->stock <= $product->min_stock)
+                                                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                                @endif
+                                            </span>
+                                            <small class="text-muted d-block">Mín: {{ $product->min_stock }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">{{ $product->status->name ?? 'Sin estado' }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-outline-info" title="Ver">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-outline-warning" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="confirmDelete({{ $product->id }})">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">
+                                            No hay productos registrados
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+
+                        <!-- Paginación -->
+                        @if($products->hasPages())
+                            <div class="d-flex justify-content-center mt-3">
+                                {{ $products->links() }}
+                            </div>
+                        @endif>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function confirmDelete(productId) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminarlo!",
+        cancelButtonText: "No, cancelar!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Crear formulario dinámico para eliminar
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/products/${productId}`;
+
+            // Agregar token CSRF
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = '{{ csrf_token() }}';
+            form.appendChild(csrfToken);
+
+            // Agregar método DELETE
+            const methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'DELETE';
+            form.appendChild(methodField);
+
+            document.body.appendChild(form);
+            form.submit();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelado",
+                text: "El producto está a salvo :)",
+                icon: "error"
+            });
+        }
+    });
+}
+</script>
+
+@endsection
