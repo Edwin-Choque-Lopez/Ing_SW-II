@@ -40,7 +40,7 @@ class ProductsController extends Controller
             'price_sell' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'min_stock' => 'required|integer|min:0',
-            'image_main' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'image_main' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         $image = $request->file('image_main');
@@ -54,14 +54,14 @@ class ProductsController extends Controller
             $product->update(['image_main' => $path]);
         }
 
-        return redirect()->route('products.index')->with('success', 'Producto creado correctamente.');
+        return redirect()->route('products.index')->with('icon','success')->with('title','Exito')->with('message', 'Producto registrado correctamente.');
 
     }
     public function show(string $id)
     {
         $product = Product::with(['status', 'category', 'brand'])->findOrFail($id);
-        return response()->json($product);
-        //return view('products.show', compact('product'));
+        //return response()->json($product);
+        return view('products.show', compact('product'));
     }
 
     public function edit(string $id)
@@ -107,7 +107,7 @@ class ProductsController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('products.show', $product->id)->with('success', 'Producto actualizado correctamente.');
+        return redirect()->route('products.show', $product->id)->with('icon','success')->with('title','Exito')->with('message', 'Producto actualizado correctamente.');
     }
 
     public function destroy(string $id)
@@ -121,6 +121,6 @@ class ProductsController extends Controller
 
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.');
+        return redirect()->route('products.index')->with('icon','success')->with('title','Exito')->with('message', 'Producto eliminado correctamente.');
     }
 }

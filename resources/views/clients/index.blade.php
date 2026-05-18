@@ -115,11 +115,11 @@
                     <p>En este apartado puede gestionar las clientes del sistema.</p>
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
-                            <thead>
+                            <thead class="table-dark">
                                 <tr>
-                                    <th>C.I.</th>
-                                    <th>Nombre</th>
-                                    <th>N° de Celular</th>
+                                    <th style="text-align: center;">C.I.</th>
+                                    <th style="text-align: center;">Nombre</th>
+                                    <th style="text-align: center;">N° de Celular</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -332,7 +332,7 @@
 function confirmDelete(productId) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: "btn btn-success",
+            confirmButton: "btn btn-success ms-2",
             cancelButton: "btn btn-danger"
         },
         buttonsStyling: false

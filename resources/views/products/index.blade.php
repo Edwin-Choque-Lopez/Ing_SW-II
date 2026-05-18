@@ -26,19 +26,19 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>OEM</th>
-                                    <th>Nombre</th>
-                                    <th>Precio Compra</th>
-                                    <th>Precio Venta</th>
-                                    <th>Stock</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th style="text-align: center;">OEM</th>
+                                    <th style="text-align: center;">Nombre</th>
+                                    <th style="text-align: center;">Precio Compra</th>
+                                    <th style="text-align: center;">Precio Venta</th>
+                                    <th style="text-align: center;">Stock</th>
+                                    <th style="text-align: center;">Estado</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($products as $product)
                                     <tr>
-                                        <td>{{ $product->oem }}</td>
+                                        <td >{{ $product->oem }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>Bs. {{ number_format($product->price_buy, 2) }}</td>
                                         <td>Bs. {{ number_format($product->price_sell, 2) }}</td>
@@ -54,18 +54,18 @@
                                         <td>
                                             <span class="badge bg-info">{{ $product->status->name ?? 'Sin estado' }}</span>
                                         </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-outline-info" title="Ver">
+                                        <td class="d-flex justify-content-center gap-2"> 
+                                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-outline-info" title="Ver">
                                                     <i class="bi bi-eye"></i>
-                                                </a>
-                                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-outline-warning" title="Editar">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="confirmDelete({{ $product->id }})">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
+                                            </a>
+                                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-outline-success" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form id="delete-form-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete({{ $product->id }})"><i class="bi bi-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty
@@ -83,7 +83,7 @@
                             <div class="d-flex justify-content-center mt-3">
                                 {{ $products->links() }}
                             </div>
-                        @endif>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
 function confirmDelete(productId) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: "btn btn-success",
+            confirmButton: "btn btn-success ms-2",
             cancelButton: "btn btn-danger"
         },
         buttonsStyling: false
@@ -111,31 +111,12 @@ function confirmDelete(productId) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            // Crear formulario dinámico para eliminar
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = `/products/${productId}`;
-
-            // Agregar token CSRF
-            const csrfToken = document.createElement('input');
-            csrfToken.type = 'hidden';
-            csrfToken.name = '_token';
-            csrfToken.value = '{{ csrf_token() }}';
-            form.appendChild(csrfToken);
-
-            // Agregar método DELETE
-            const methodField = document.createElement('input');
-            methodField.type = 'hidden';
-            methodField.name = '_method';
-            methodField.value = 'DELETE';
-            form.appendChild(methodField);
-
-            document.body.appendChild(form);
-            form.submit();
+            document.getElementById('delete-form-' + productId).submit();
+            
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire({
                 title: "Cancelado",
-                text: "El producto está a salvo :)",
+                text: "Tu producto está a salvo :)",
                 icon: "error"
             });
         }

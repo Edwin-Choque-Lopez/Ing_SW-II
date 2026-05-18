@@ -90,7 +90,7 @@
                     <p>En este apartado puede gestionar los estados de productos del sistema.</p>
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
-                            <thead>
+                            <thead class="table-dark">
                                 <tr>
                                     <th style="text-align: center;">Nombre</th>
                                     <th></th>
@@ -311,9 +311,10 @@
                     <p>En este apartado puede gestionar las estados en los que puede estar una reservacion.</p>
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
-                            <thead>
+                            <thead class="table-dark">
                                 <tr>
                                     <th style="text-align: center;">Nombre</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>

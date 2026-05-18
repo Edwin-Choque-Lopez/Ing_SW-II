@@ -74,7 +74,7 @@
                                 <li class="submenu-item">
                                     <a href="{{ route('systemManagement.index') }}" class="submenu-link">
                                         <i class="bi bi-sliders2"></i>
-                                        <span>Administracioón Catálogo</span>
+                                        <span>Administración</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item">
