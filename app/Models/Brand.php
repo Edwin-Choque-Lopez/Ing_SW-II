@@ -11,6 +11,7 @@ class Brand extends Model
     protected $table = 'brands';
     protected $fillable = [
         'name', 
+        'logo',
         'country_origin',
     ];
     public function products():HasMany

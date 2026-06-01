@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone_whatsapp')->nullable();
             $table->string('email')->nullable();
             $table->string('logo_path')->nullable();
-            $table->text('footer_text')->nullable();
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

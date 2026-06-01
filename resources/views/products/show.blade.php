@@ -102,20 +102,11 @@
                                     </div>
                                 </div>
 
-                                @if($product->compatibility_notes)
-                                <div class="col-md-6">
-                                    <div class="border rounded p-3 h-100">
-                                        <label class="form-label fw-bold text-primary">Notas de Compatibilidad</label>
-                                        <p class="mb-0">{{ $product->compatibility_notes }}</p>
-                                    </div>
-                                </div>
-                                @endif
-
-                                @if($product->technical_specs)
-                                <div class="col-md-6">
+                                @if($product->technical_notes)
+                                <div class="col-md-12">
                                     <div class="border rounded p-3 h-100">
                                         <label class="form-label fw-bold text-primary">Especificaciones Técnicas</label>
-                                        <p class="mb-0">{{ $product->technical_specs }}</p>
+                                        <p class="mb-0">{{ $product->technical_notes}}</p>
                                     </div>
                                 </div>
                                 @endif

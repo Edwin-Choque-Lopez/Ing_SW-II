@@ -57,8 +57,8 @@
                                                 <label class="form-label">Nombre del cliente*</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                                    <input name="full_name" type="text" class="form-control @error('full_name') is-invalid @enderror" placeholder="Nombre del cliente"
-                                                    value="{{ old('full_name') }}" required>
+                                                    <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Nombre del cliente"
+                                                    value="{{ old('name') }}" required>
                                                     @error('name')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -72,7 +72,7 @@
                                                     <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                                     <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Numero de celular del cliente"
                                                     value="{{ old('phone') }}" required>
-                                                    @error('name')
+                                                    @error('phone')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -85,7 +85,7 @@
                                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                                     <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Correlo electronico"
                                                     value="{{ old('email') }}" >
-                                                    @error('name')
+                                                    @error('email')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -127,7 +127,7 @@
                                 @foreach($clients as $client)
                                     <tr>
                                         <td>{{ $client->ci}}</td>
-                                        <td>{{ $client->full_name }}</td>
+                                        <td>{{ $client->name }}</td>
                                         <td>{{ $client->phone }}</td>
                                         <td class="d-flex justify-content-center gap-2">
                                             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#showclient{{ $client->id }}">
@@ -171,7 +171,7 @@
                                                         <div class="input-group">
                                                             <span class="input-group-text"><i class="bi bi-person-vcard-fill"></i></span>
                                                             <input name="ci" type="text" class="form-control @error('ci') is-invalid @enderror" placeholder="C.I. del cliente"
-                                                            value="{{ old('name',$client->ci)}}" required>
+                                                            value="{{ old('ci',$client->ci)}}" required>
                                                             @error('ci')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
@@ -183,8 +183,8 @@
                                                         <label class="form-label">Nombre del cliente*</label>
                                                         <div class="input-group">
                                                             <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                                            <input name="full_name" type="text" class="form-control @error('full_name') is-invalid @enderror" placeholder="Nombre del cliente"
-                                                            value="{{ old('full_name',$client->full_name) }}" required>
+                                                            <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Nombre del cliente"
+                                                            value="{{ old('name',$client->name) }}" required>
                                                             @error('name')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
@@ -198,7 +198,7 @@
                                                             <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                                             <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Numero de celular del cliente"
                                                             value="{{ old('phone',$client->phone) }}" required>
-                                                            @error('name')
+                                                            @error('phone')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
@@ -211,7 +211,7 @@
                                                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                                             <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Correlo electronico"
                                                             value="{{ old('email',$client->email) }}" >
-                                                            @error('name')
+                                                            @error('email')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
@@ -261,7 +261,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
                                                         <input name="full_name" type="text" class="form-control" placeholder="Nombre del cliente"
-                                                        value="{{ old('full_name',$client->full_name) }}" readonly>
+                                                        value="{{ old('full_name',$client->name) }}" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">

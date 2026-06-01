@@ -16,7 +16,7 @@ class ClientsController extends Controller
     {
         $validated = $request->validate([
             'ci'        => 'required|string|min:7|max:10|regex:/^[0-9\s]+$/|unique:clients,ci,',
-            'full_name' => 'required|string|max:255|regex:/^[0-9a-zA-ZáéíóúñÁÉÍÓÚÑ\s]+$/',
+            'name' => 'required|string|max:255|regex:/^[0-9a-zA-ZáéíóúñÁÉÍÓÚÑ\s]+$/',
             'phone'     => 'nullable|string|min:8|max:10|regex:/^[0-9\s]+$/',
             'email'     => 'nullable|email|max:255',
         ], [
@@ -26,10 +26,10 @@ class ClientsController extends Controller
             'ci.max'             => 'La cédula no puede tener más de 10 caracteres.',
             'ci.unique'          => 'Este número de cédula ya se encuentra registrado.',
             'ci.regex'           => 'La cedula solo puede contener números y espacios.',
-            'full_name.required' => 'El nombre completo es obligatorio.',
-            'full_name.string'   => 'El nombre completo debe ser un formato de texto válido.',
-            'full_name.max'      => 'El nombre completo no puede exceder los 255 caracteres.',
-            'full_name.regex'    => 'El nombre completo solo puede contener letras, números y espacios.',
+            'name.required' => 'El nombre completo es obligatorio.',
+            'name.string'   => 'El nombre completo debe ser un formato de texto válido.',
+            'name.max'      => 'El nombre completo no puede exceder los 255 caracteres.',
+            'name.regex'    => 'El nombre completo solo puede contener letras, números y espacios.',
             'phone.string'       => 'El teléfono debe ser un formato de texto válido.',
             'phone.min'          => 'El teléfono debe tener al menos 8 dígitos.',
             'phone.max'          => 'El teléfono no puede tener más de 10 dígitos.',
@@ -48,7 +48,7 @@ class ClientsController extends Controller
         $client = Client::findOrFail($id);
         $validated = $request->validate([
             'ci'        => 'required|string|min:7|max:10|regex:/^[0-9\s]+$/|unique:clients,ci,'.$id,
-            'full_name' => 'required|string|max:255|regex:/^[0-9a-zA-ZáéíóúñÁÉÍÓÚÑ\s]+$/',
+            'name' => 'required|string|max:255|regex:/^[0-9a-zA-ZáéíóúñÁÉÍÓÚÑ\s]+$/',
             'phone'     => 'nullable|string|min:8|max:10|regex:/^[0-9\s]+$/',
             'email'     => 'nullable|email|max:255',
         ], [
@@ -58,10 +58,10 @@ class ClientsController extends Controller
             'ci.max'             => 'La cédula no puede tener más de 10 caracteres.',
             'ci.unique'          => 'Este número de cédula ya se encuentra registrado.',
             'ci.regex'           => 'La cedula solo puede contener números y espacios.',
-            'full_name.required' => 'El nombre completo es obligatorio.',
-            'full_name.string'   => 'El nombre completo debe ser un formato de texto válido.',
-            'full_name.max'      => 'El nombre completo no puede exceder los 255 caracteres.',
-            'full_name.regex'    => 'El nombre completo solo puede contener letras, números y espacios.',
+            'name.required' => 'El nombre completo es obligatorio.',
+            'name.string'   => 'El nombre completo debe ser un formato de texto válido.',
+            'name.max'      => 'El nombre completo no puede exceder los 255 caracteres.',
+            'name.regex'    => 'El nombre completo solo puede contener letras, números y espacios.',
             'phone.string'       => 'El teléfono debe ser un formato de texto válido.',
             'phone.min'          => 'El teléfono debe tener al menos 8 dígitos.',
             'phone.max'          => 'El teléfono no puede tener más de 10 dígitos.',

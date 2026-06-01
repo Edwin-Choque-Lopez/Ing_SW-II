@@ -24,7 +24,7 @@ class CompanyController extends Controller
             'city'           => 'nullable|string|max:255|regex:/^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s]+$/', // Removido números para ciudades
             'phone_whatsapp' => 'required|string|max:50|regex:/^[0-9\s+]+$/', // Añadido el símbolo '+' para códigos de país
             'email'          => 'nullable|email|max:255', // Coma corregida
-            'footer_text'    => 'nullable|string|max:1000|regex:/^[0-9a-zA-ZáéíóúñÁÉÍÓÚÑ(),.\s]+$/', // Añadido max
+            'description'    => 'nullable|string|max:1000|regex:/^[0-9a-zA-ZáéíóúñÁÉÍÓÚÑ(),.\s]+$/', // Añadido max
             'logo_path'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             // Mensajes para 'name'
@@ -60,10 +60,10 @@ class CompanyController extends Controller
             'email.email'             => 'Debe ingresar un correo electrónico válido.',
             'email.max'               => 'El correo electrónico no puede superar los 255 caracteres.',
 
-            // Mensajes para 'footer_text'
-            'footer_text.string'      => 'El texto de pie de página debe ser un formato de texto válido.',
-            'footer_text.max'         => 'El texto de pie de página no puede superar los 1000 caracteres.',
-            'footer_text.regex'       => 'El pie de página contiene caracteres no permitidos.',
+            // Mensajes para 'description'
+            'description.string'      => 'La descripción debe ser un formato de texto válido.',
+            'description.max'         => 'La descripción no puede superar los 1000 caracteres.',
+            'description.regex'       => 'La descripción contiene caracteres no permitidos.',
 
             // Mensajes para 'logo_path'
             'logo_path.image'         => 'El archivo seleccionado debe ser una imagen.',

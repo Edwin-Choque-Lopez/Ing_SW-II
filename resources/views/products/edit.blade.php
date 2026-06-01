@@ -151,23 +151,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label for="compatibility_notes" class="form-label">Notas de Compatibilidad</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="bi bi-pc-display"></i></span>
-                                            <textarea id="compatibility_notes" name="compatibility_notes" class="form-control @error('compatibility_notes') is-invalid @enderror" rows="3">{{ old('compatibility_notes', $product->compatibility_notes) }}</textarea>
-                                            @error('compatibility_notes')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="technical_specs" class="form-label">Especificaciones Técnicas</label>
+                                    <div class="col-md-12">
+                                        <label for="technical_notes" class="form-label">Especificaciones Técnicas</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-gear-fill"></i></span>
-                                            <textarea id="technical_specs" name="technical_specs" class="form-control @error('technical_specs') is-invalid @enderror" rows="3">{{ old('technical_specs', $product->technical_specs) }}</textarea>
-                                            @error('technical_specs')
+                                            <textarea id="technical_notes" name="technical_notes" class="form-control @error('technical_notes') is-invalid @enderror" rows="3">{{ old('technical_notes', $product->technical_notes) }}</textarea>
+                                            @error('technical_notes')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

@@ -119,9 +119,9 @@
                                             <div class=" mb-3">
                                                 <label for="footer_text" class="form-label">Descripción</label>
                                                 <div class="form-group with-title mb-3">
-                                                    <textarea name="footer_text" class="form-control @error('footer_text') is-invalid @enderror" rows="3" >{{$storeProfile->footer_text}}</textarea>
+                                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" >{{$storeProfile->description}}</textarea>
                                                     <label>Redacte una mensaje referente a la empresa</label>
-                                                    @error('footer_text')
+                                                    @error('description')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -228,7 +228,7 @@
                                 <div class=" mb-3">
                                     <label for="Especificaciones" class="form-label">Descripción</label>
                                     <div class="form-group with-title mb-3">
-                                        <textarea class="form-control" rows="3" >{{$storeProfile->footer_text}}</textarea>
+                                        <textarea class="form-control" rows="10" >{{$storeProfile->description}}</textarea>
                                         <label>Redacte una mensaje referente a la empresa</label>
                                     </div>
                                 </div>

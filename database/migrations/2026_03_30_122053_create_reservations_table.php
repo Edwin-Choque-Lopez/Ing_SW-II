@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade')->nullable();
             $table->string('code_order')->unique();
             $table->foreignId('status_id')->constrained('status_reservations')->onDelete('cascade');
-            //$table->enum('status', ['pending', 'ready', 'delivered', 'cancelled']);
             $table->text('admin_notes')->nullable();
-            $table->decimal('total_amount', 10, 2);
-            $table->timestamp('expiry_date');
+            $table->decimal('total_amount', 10, 2)->nullable();
+            $table->timestamp('expiry_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

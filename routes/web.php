@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[App\Http\Controllers\CatalogController::class, 'start'])->name('inicio');
+Route::get('/catalog/products',[App\Http\Controllers\CatalogController::class, 'catalog'])->name('catalog.products');
+Route::get('/catalog/products/{id}',[App\Http\Controllers\CatalogController::class, 'infoproduct'])->name('info.products');
+Route::get('/category/{id}',[App\Http\Controllers\CatalogController::class, 'filter'])->name('filter.prodcuts');
 
 Auth::routes();
 

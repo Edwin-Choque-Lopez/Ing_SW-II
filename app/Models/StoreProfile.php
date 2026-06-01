@@ -16,6 +16,6 @@ class StoreProfile extends Model
         'phone_whatsapp',
         'email',
         'logo_path',
-        'footer_text',
+        'description',
     ];
 }

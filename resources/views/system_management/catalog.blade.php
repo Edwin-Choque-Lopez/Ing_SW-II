@@ -74,12 +74,41 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            
+                                            <div class="card border rounded p-3 h-100">
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <div>
+                                                        <h5 class="mb-1">Foto de Categoria</h5>
+                                                        <p class="text-muted mb-0">Sube una imagen solo para las categorias padres</p>
+                                                    </div>
+                                                    <span class="badge bg-primary">Vista previa</span>
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <div id="categoryPhotoPreviewPlaceholder" class="d-flex align-items-center justify-content-center rounded bg-light" style="height: 240px;">
+                                                        <i class="bi bi-image fs-1 text-secondary"></i>
+                                                    </div>
+                                                    <img id="categoryPhotoPreview" src="#" alt="Foto de categoria" class="img-fluid rounded mx-auto d-block d-none" style="max-height: 240px;">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="photo" class="form-label">Seleccionar imagen</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="bi bi-image"></i></span>
+                                                        <input type="file" id="photo" name="photo" class="form-control @error('photo') is-invalid @enderror" accept="image/*" onchange="previewCategoryPhoto(event)">
+                                                        @error('photo')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12 mb-3">
                                                 <label for="Especificaciones" class="form-label">Descripción</label>
                                                 <div class="form-group with-title mb-3">
-                                                    <textarea name="description_short" class="form-control @error('description_short') is-invalid @enderror" rows="3" >{{ old('description_short') }}</textarea>
+                                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" >{{ old('description') }}</textarea>
                                                     <label>Redacte una descripción de la categoria</label>
-                                                    @error('description_short')
+                                                    @error('description')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -118,7 +147,7 @@
                             <tbody>
                                 @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ Str::limit($category->name, 20, '...')}} </td>
                                         <td class="d-flex justify-content-center gap-2">
                                             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#showcategory{{ $category->id }}">
                                                 <i class="bi bi-eye"></i>
@@ -191,12 +220,35 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-12 col-md-12 mb-3">
+                                                        <div class="card border rounded p-3 h-100">
+                                                            <div class="mb-3">
+                                                                <label for="image_main_{{ $category->id }}" class="form-label">Foto de categoría</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
+                                                                    <input type="file" id="image_main_{{ $category->id }}" name="photo" class="form-control @error('photo') is-invalid @enderror" accept="image/*" onchange="previewCategoryImage(event, '{{ $category->id }}')">
+                                                                </div>
+                                                                @error('photo')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="text-center mb-3">
+                                                                <div id="productImagePlaceholder{{ $category->id }}" class="d-flex align-items-center justify-content-center rounded bg-light {{ $category->photo ? 'd-none' : '' }}" style="height: 240px;">
+                                                                    <i class="bi bi-image fs-1 text-secondary"></i>
+                                                                </div>
+                                                                <img id="productImagePreview{{ $category->id }}" data-current-src="{{ $category->photo ? asset('storage/' . $category->photo) : '' }}" src="{{ $category->photo ? asset('storage/' . $category->photo) : '' }}" alt="Vista previa de categoría" class="img-fluid rounded mx-auto d-block {{ $category->photo ? '' : 'd-none' }}" style="max-height: 240px;">
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                    
                                                     <div class="col-md-12 mb-3">
                                                         <label for="Especificaciones" class="form-label">Descripción</label>
                                                         <div class="form-group with-title mb-3">
-                                                            <textarea name="description_short" class="form-control @error('description_short') is-invalid @enderror" rows="3" >{{ old('description_short') ?? $category->description_short }}</textarea>
+                                                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" >{{ old('description') ?? $category->description }}</textarea>
                                                             <label>Redacte una descripción de la categoria</label>
-                                                            @error('description_short')
+                                                            @error('description')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
@@ -260,7 +312,7 @@
                                                 <div class="col-md-12 mb-3">
                                                     <label for="Especificaciones" class="form-label">Descripción</label>
                                                     <div class="form-group with-title mb-3">
-                                                        <textarea name="description_short" class="form-control" rows="3" readonly>{{ old('description_short') ?? $category->description_short }}</textarea>
+                                                        <textarea name="description_" class="form-control" rows="3" readonly>{{ old('description_short') ?? $category->description }}</textarea>
                                                         <label>Descripción de la categoria</label>
                                                     </div>
                                                 </div>
@@ -343,6 +395,36 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
+                                            <div class="card border rounded p-3 h-100">
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <div>
+                                                        <h5 class="mb-1">Foto de Marca</h5>
+                                                        <p class="text-muted mb-0">Sube el logo de la marca</p>
+                                                    </div>
+                                                    <span class="badge bg-primary">Vista previa</span>
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <div id="brandPhotoPreviewPlaceholder" class="d-flex align-items-center justify-content-center rounded bg-light" style="height: 240px;">
+                                                        <i class="bi bi-image fs-1 text-secondary"></i>
+                                                    </div>
+                                                    <img id="brandPhotoPreview" src="#" alt="Foto de marca" class="img-fluid rounded mx-auto d-block d-none" style="max-height: 240px;">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="photo" class="form-label">Seleccionar imagen</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="bi bi-image"></i></span>
+                                                        <input type="file" id="logo" name="logo" class="form-control @error('logo') is-invalid @enderror" accept="image/*" onchange="previewBrandPhoto(event)">
+                                                        @error('logo')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -444,6 +526,30 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-12 col-md-12 mb-3">
+                                                        <div class="card border rounded p-3 h-100">
+                                                            <div class="mb-3">
+                                                                <label for="image_main_{{ $brand->id }}" class="form-label">Foto de marca</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
+                                                                    <input type="file" id="image_main_{{ $brand->id }}" name="logo" class="form-control @error('logo') is-invalid @enderror" accept="image/*" onchange="previewBrandImage(event, '{{ $brand->id }}')">
+                                                                </div>
+                                                                @error('logo')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="text-center mb-3">
+                                                                <div id="brandImagePlaceholder{{ $brand->id }}" class="d-flex align-items-center justify-content-center rounded bg-light {{ $brand->logo ? 'd-none' : '' }}" style="height: 240px;">
+                                                                    <i class="bi bi-image fs-1 text-secondary"></i>
+                                                                </div>
+                                                                <img id="brandImagePreview{{ $brand->id }}" data-current-src="{{ $brand->logo ? asset('storage/' . $brand->logo) : '' }}" src="{{ $brand->logo ? asset('storage/' . $brand->logo) : '' }}" alt="Vista previa de marca" class="img-fluid rounded mx-auto d-block {{ $brand->logo ? '' : 'd-none' }}" style="max-height: 240px;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -550,6 +656,120 @@
 @endif
 
 <script>
+    function previewCategoryPhoto(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('categoryPhotoPreview');
+        const placeholder = document.getElementById('categoryPhotoPreviewPlaceholder');
+
+        if (!preview || !placeholder) {
+            return;
+        }
+
+        if (!file) {
+            preview.classList.add('d-none');
+            placeholder.classList.remove('d-none');
+            preview.src = '#';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+            placeholder.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function previewCategoryImage(event, categoryId) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('productImagePreview' + categoryId);
+        const placeholder = document.getElementById('productImagePlaceholder' + categoryId);
+
+        if (!preview || !placeholder) {
+            return;
+        }
+
+        if (!file) {
+            const currentSrc = preview.dataset.currentSrc || '';
+            if (currentSrc) {
+                preview.src = currentSrc;
+                preview.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+            } else {
+                preview.classList.add('d-none');
+                placeholder.classList.remove('d-none');
+            }
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+            placeholder.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    }
+///
+function previewBrandPhoto(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('brandPhotoPreview');
+        const placeholder = document.getElementById('brandPhotoPreviewPlaceholder');
+
+        if (!preview || !placeholder) {
+            return;
+        }
+
+        if (!file) {
+            preview.classList.add('d-none');
+            placeholder.classList.remove('d-none');
+            preview.src = '#';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+            placeholder.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function previewBrandImage(event, brandId) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('brandImagePreview' + brandId);
+        const placeholder = document.getElementById('brandImagePlaceholder' + brandId);
+
+        if (!preview || !placeholder) {
+            return;
+        }
+
+        if (!file) {
+            const currentSrc = preview.dataset.currentSrc || '';
+            if (currentSrc) {
+                preview.src = currentSrc;
+                preview.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+            } else {
+                preview.classList.add('d-none');
+                placeholder.classList.remove('d-none');
+            }
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+            placeholder.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    
+
     function confirmDelete(formId, itemName) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
