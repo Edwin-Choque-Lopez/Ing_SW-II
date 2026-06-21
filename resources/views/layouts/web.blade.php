@@ -62,13 +62,33 @@ https://templatemo.com/tm-559-zay-shop
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="{{route('login')}}">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                    </a>
+                    
+                    @auth
+                        @if(auth()->user()->role_id == 2)
+                            <!-- Caso Cliente: El botón de login se transforma en el botón de Cerrar Sesión -->
+                            <a class="nav-icon position-relative text-decoration-none text-danger" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();" 
+                            title="Cerrar sesión">
+                                <i class="fa fa-fw fa-door-open text-danger mr-3"></i>
+                            </a>
+                            
+                            <!-- Formulario oculto necesario para procesar el cierre de sesión seguro en Laravel -->
+                            <form id="nav-logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        @else
+                            {{-- Si es administrador (role_id 1) o cualquier otro rol, funciona normal --}}
+                            <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}">
+                                <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            </a>
+                        @endif
+                    @else
+                        {{-- Si no ha iniciado sesión, el botón dirige al login normalmente --}}
+                        <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        </a>
+                    @endauth
+
                 </div>
             </div>
 

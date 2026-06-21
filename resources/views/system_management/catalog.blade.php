@@ -140,6 +140,7 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
+                                    <th style="text-align: center;">N°</th>
                                     <th style="text-align: center;">Nombre</th>
                                     <th></th>
                                 </tr>
@@ -147,6 +148,7 @@
                             <tbody>
                                 @foreach($categories as $category)
                                     <tr>
+                                        <td>{{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}</td>
                                         <td>{{ Str::limit($category->name, 20, '...')}} </td>
                                         <td class="d-flex justify-content-center gap-2">
                                             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#showcategory{{ $category->id }}">
@@ -450,6 +452,7 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
+                                    <th style="text-align: center;">N°</th>
                                     <th style="text-align: center;">Nombre</th>
                                     <th style="text-align: center;">Pais de origen</th>
                                     <th></th>
@@ -458,6 +461,7 @@
                             <tbody>
                                 @foreach($brands as $brand)
                                     <tr>
+                                        <<td>{{ ($brands->currentPage() - 1) * $brands->perPage() + $loop->iteration }}</td>
                                         <td>{{ $brand->name }}</td>
                                         <td>{{ $brand->country_origin }}</td>
                                         <td class="d-flex justify-content-center gap-2">

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reservation_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('reservation_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('reservation_id')->constrained('reservations')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('unite_price', 8, 2);
             $table->decimal('item_subtotal', 8, 2);//->virtualAs('quantity * unite_price');

@@ -92,6 +92,7 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
+                                    <th style="text-align: center;">N°</th>
                                     <th style="text-align: center;">Nombre</th>
                                     <th></th>
                                 </tr>
@@ -99,6 +100,7 @@
                             <tbody>
                                 @foreach($productStatuses as $productStatus)
                                     <tr>
+                                        <td>{{ ($productStatuses->currentPage() - 1) * $productStatuses->perPage() + $loop->iteration }}</td>
                                         <td>{{ $productStatus->name }}</td>
                                         <td class="d-flex justify-content-center gap-2">
                                             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#showproductstatus{{ $productStatus->id }}">
@@ -313,6 +315,7 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
+                                    <th style="text-align: center;">N°</th>
                                     <th style="text-align: center;">Nombre</th>
                                     <th></th>
                                 </tr>
@@ -320,6 +323,7 @@
                             <tbody>
                                 @foreach($reservationStatuses as $reservationstatus)
                                     <tr>
+                                        <td>{{ ($reservationStatuses->currentPage() - 1) * $reservationStatuses->perPage() + $loop->iteration }}</td>
                                         <td>{{ $reservationstatus->name }}</td>
                                         <td class="d-flex justify-content-center gap-2">
                                             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#showbrand{{ $reservationstatus->id }}">

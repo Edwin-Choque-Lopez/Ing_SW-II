@@ -12,17 +12,18 @@ class Reservation extends Model
    use SoftDeletes;
    protected $table = 'reservations';
     protected $fillable = [
-        'client_id',
+        'user_id',
         'code_order',
         'status_id',
-        'admin_notes',
-        'total_amount',
+        'notes',
+        'total',
         'expiry_date',
+        'booking',
     ];
 
-    public function client(): BelongsTo
+    public function user(): BelongsTo
     { 
-        return $this->belongsTo(Client::class, 'client_id', 'id'); 
+        return $this->belongsTo(User::class, 'user_id', 'id'); 
     }
     public function ReservationItems(): HasMany
     { 

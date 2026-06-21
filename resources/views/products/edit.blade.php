@@ -20,12 +20,13 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title mb-0">FORMULARIO DE EDICIÓN</h4>
                 <div class="btn-group">
-                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-info">
-                        <i class="bi bi-eye me-1"></i>Ver Detalles
-                    </a>
                     <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left me-1"></i>Volver
                     </a>
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-info">
+                        <i class="bi bi-eye me-1"></i>Ver Detalles
+                    </a>
+                    
                 </div>
             </div>
             <div class="card-content">

@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/',[App\Http\Controllers\CatalogController::class, 'start'])->name('inicio');
 Route::get('/catalog/products',[App\Http\Controllers\CatalogController::class, 'catalog'])->name('catalog.products');
-Route::get('/catalog/products/{id}',[App\Http\Controllers\CatalogController::class, 'infoproduct'])->name('info.products');
+Route::get('/catalog/products/{id}',[App\Http\Controllers\CatalogController::class, 'infoproduct'])->name('info.products')->middleware('auth');
 Route::get('/category/{id}',[App\Http\Controllers\CatalogController::class, 'filter'])->name('filter.prodcuts');
-
+Route::post('/reservation/store',[App\Http\Controllers\CatalogController::class, 'storeReservation'])->name('reservation.store');
+Route::get('/reservation/shopping/cart',[App\Http\Controllers\CatalogController::class, 'cart'])->name('shopping.cart');
+Route::post('/reserve', [App\Http\Controllers\CatalogController::class, 'reserve'])->name('reserve');
+Route::delete('/reservation/delete/item/{id}',[App\Http\Controllers\CatalogController::class, 'itemDelete'])->name('item.delete');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

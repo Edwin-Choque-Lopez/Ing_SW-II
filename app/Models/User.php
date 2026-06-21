@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -19,13 +21,26 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    use SoftDeletes;
+    protected $table = 'users';
     protected $fillable = [
+        'role_id',
         'ci',
-        'photo',
         'name',
+        'photo',
+        'phone',
         'email',
         'password',
     ];
+    public function reservations():HasMany
+    { 
+        return $this->hasMany(Reservation::class,'user_id', 'id'); 
+    }
+    public function role():BelongsTo
+    {
+        return $this->belongsTo(Role::class,'role_id','id');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

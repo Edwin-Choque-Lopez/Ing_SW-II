@@ -19,11 +19,11 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title mb-0">DETALLES DEL PRODUCTO</h4>
                 <div class="btn-group">
-                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-warning">
-                        <i class="bi bi-pencil me-1"></i>Editar
-                    </a>
                     <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left me-1"></i>Volver
+                    </a>
+                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-warning">
+                        <i class="bi bi-pencil me-1"></i>Editar
                     </a>
                 </div>
             </div>

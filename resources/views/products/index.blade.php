@@ -26,9 +26,9 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
+                                    <th style="text-aling: center:">N°</th>
                                     <th style="text-align: center;">OEM</th>
                                     <th style="text-align: center;">Nombre</th>
-                                    <th style="text-align: center;">Precio Compra</th>
                                     <th style="text-align: center;">Precio Venta</th>
                                     <th style="text-align: center;">Stock</th>
                                     <th style="text-align: center;">Estado</th>
@@ -38,9 +38,9 @@
                             <tbody>
                                 @forelse($products as $product)
                                     <tr>
+                                        <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                                         <td >{{ $product->oem }}</td>
                                         <td>{{ $product->name }}</td>
-                                        <td>Bs. {{ number_format($product->price_buy, 2) }}</td>
                                         <td>Bs. {{ number_format($product->price_sell, 2) }}</td>
                                         <td>
                                             <span class="badge {{ $product->stock <= $product->min_stock ? 'bg-danger' : ($product->stock <= $product->min_stock * 1.5 ? 'bg-warning' : 'bg-success') }}">
