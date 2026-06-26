@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Client;
 
 class ClientsController extends Controller
 {
     public function index()
     {
-        $clients=Client::paginate(10);
+        $clients=User::where('role_id',2)->paginate(10);
         return view('clients.index',compact('clients'));
     }
     public function storeClient(Request $request)
