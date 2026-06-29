@@ -92,6 +92,36 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <div class="col-12 col-md-6 mb-3">
+                                                <label for="oem" class="form-label">Contraseña*</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text toggle-password" style="cursor: pointer;" data-target="password-create">
+                                                        <i class="bi bi-eye-slash"></i>
+                                                    </span>
+                                                    <input id="password-create" name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Contraseña del usuario"
+                                                    value="{{ old('password') }}" required>
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 mb-3">
+                                                <label for="oem" class="form-label">Confirmar Contraseña*</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text toggle-password" style="cursor: pointer;" data-target="password-confirm-create">
+                                                        <i class="bi bi-eye-slash"></i>
+                                                    </span>
+                                                    <input id="password-confirm-create" name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Confirmar contraseña del usuario"
+                                                    value="{{ old('password_confirmation') }}" required>
+                                                    @error('password_confirmation')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -117,6 +147,7 @@
                         <table class="table table-hover table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
+                                    <th style="text-aling: center:">N°</th>
                                     <th style="text-align: center;">C.I.</th>
                                     <th style="text-align: center;">Nombre</th>
                                     <th style="text-align: center;">N° de Celular</th>
@@ -126,6 +157,7 @@
                             <tbody>
                                 @foreach($clients as $client)
                                     <tr>
+                                        <td>{{ ($clients->currentPage() - 1) * $clients->perPage() + $loop->iteration }}</td>
                                         <td>{{ $client->ci}}</td>
                                         <td>{{ $client->name }}</td>
                                         <td>{{ $client->phone }}</td>
@@ -327,6 +359,26 @@
         });
     </script>
 @endif
+<script>
+
+document.querySelectorAll('.toggle-password').forEach(toggle => {
+    toggle.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        }
+    });
+});
+</script>
 
 <script>
 function confirmDelete(productId) {

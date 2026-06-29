@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('code_order')->unique();
-            $table->foreignId('status_id')->nullable()->constrained('status_reservations')->onDelete('cascade');
+            $table->foreignId('status_id')->default(1)->constrained('status_reservations')->onDelete('cascade');
             $table->text('notes')->nullable();
             $table->decimal('total', 10, 2)->nullable();
             $table->boolean('booking')->defautl(false);

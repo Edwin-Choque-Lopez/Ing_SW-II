@@ -461,7 +461,7 @@
                             <tbody>
                                 @foreach($brands as $brand)
                                     <tr>
-                                        <<td>{{ ($brands->currentPage() - 1) * $brands->perPage() + $loop->iteration }}</td>
+                                        <td>{{ ($brands->currentPage() - 1) * $brands->perPage() + $loop->iteration }}</td>
                                         <td>{{ $brand->name }}</td>
                                         <td>{{ $brand->country_origin }}</td>
                                         <td class="d-flex justify-content-center gap-2">

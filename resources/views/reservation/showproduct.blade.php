@@ -4,6 +4,22 @@
     <!-- Open Content -->
     <section class="bg-light">
         <div class="container pb-5">
+             @if ($errors->any() || session('message'))
+                <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                    <ul class="mb-0">
+                        <!-- Muestra los errores de validación del formulario -->
+                        @foreach ($errors->all() as $error)
+                            <li><strong>Error:</strong> {{ $error }}</li>
+                        @endforeach
+
+                        <!-- Muestra el mensaje personalizado de falta de stock -->
+                        @if (session('message'))
+                            <li><strong>Disponibilidad:</strong> {{ session('message') }}</li>
+                        @endif
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row">
                 <!-- Columna de la Imagen -->
                 <div class="col-lg-5 mt-5">
@@ -78,8 +94,7 @@
                             <form action="{{route('reservation.store')}}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="product-title" value="{{ $product->name }}">
-                                <input type="hidden" name="product-price" value="{{$product->price_sell}}">
+                                <input type="hidden" name="product_price" value="{{$product->price_sell}}">
                                 <input type="hidden" name="user_id" value="{{auth()->id()}}">
                                 <input type="hidden" name="code_order" value="{{ $code ? $code->code_order : '' }}">
                                 <div class="row align-items-center">
@@ -92,12 +107,11 @@
                                             <!-- Input limitado dinámicamente con el stock disponible -->
                                             <input 
                                                 type="number" 
-                                                name="product-quantity" 
+                                                name="product_quantity" 
                                                 id="product-quantity" 
                                                 class="form-control text-center fw-bold" 
                                                 value="{{ $product->stock > 0 ? 1 : 0 }}" 
-                                                min="{{ $product->stock > 0 ? 1 : 0 }}" 
-                                                max="{{ $product->stock }}" 
+ 
                                                 step="1"
                                                 style="width: 80px;"
                                                 {{ $product->stock == 0 ? 'disabled' : '' }}

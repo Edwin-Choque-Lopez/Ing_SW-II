@@ -86,7 +86,6 @@
                     
                 </div>
                 <div class="row">
-
                     @foreach ($products as $product)
                         <!-- h-100 en la columna ayuda a que todas compartan la misma altura en la fila -->
                         <div class="col-md-4 mb-4 d-flex align-items-stretch">

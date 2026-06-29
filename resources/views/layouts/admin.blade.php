@@ -107,6 +107,23 @@
                                 </li>
                             </ul>
                         </li>
+                        @inject('statusModel', 'App\Models\StatusReservation')
+
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-calendar-check"></i>
+                                <span>Reservaciones</span>
+                            </a>
+                            <ul class="submenu">
+                                @foreach($statusModel::all() as $status)
+                                    <li class="submenu-item">
+                                        <a href="{{ route('reservationId', ['id' => $status->id]) }}" class="submenu-link">
+                                            <span>{{ $status->name }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                         <li class="sidebar-item">
                             <a href="{{route('clients.index')}}" class="sidebar-link">
                                 <i class="bi bi-person"></i>

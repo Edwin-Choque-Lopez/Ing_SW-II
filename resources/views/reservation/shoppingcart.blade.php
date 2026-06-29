@@ -59,7 +59,6 @@
                                                                 <h6 class="text-dark mb-0 fw-semibold">{{ $item->product->name }}</h6>
                                                                 <div class="text-muted x-small d-flex flex-wrap gap-2 mt-1" style="font-size: 0.8rem;">
                                                                     <span class="badge bg-light text-secondary border">OEM: {{ $item->product->oem }}</span>
-                                                                    <span><i class="fa fa-wrench me-1"></i>{{ $item->product->technical_notes }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -83,7 +82,6 @@
                                                         <form action="{{ route('item.delete', $item->id) }}" method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                           
                                                             <input type="hidden" name="code_order" value="{{$shopping->code_order}}">
                                                             <button type="submit" class="btn btn-sm btn-outline-danger border-0 p-2" title="Quitar producto">
                                                                 <i class="fa fa-trash-alt"></i>
@@ -118,7 +116,6 @@
                                             
                                             <!-- Input oculto para enviar el código de orden (útil para saber qué reserva cerrar) -->
                                             <input type="hidden" name="code_order" value="{{ $shopping->code_order }}">
-                                            <input type="hidden" name="code_order" value="{{$shopping->code_order}}">
                                             
                                             <div class="d-flex justify-content-between align-items-center mb-3">
                                                 <span class="text-dark fw-bold fs-5">Monto Total:</span>
@@ -131,7 +128,7 @@
                                             <div class="d-grid gap-2">
                                                 <!-- Cambiado de <a> a <button type="submit"> -->
                                                 <button type="submit" class="btn btn-primary fw-bold py-2 shadow-sm">
-                                                    <i class="fa fa-check-circle me-2"></i>Confirmar y Pagar Reserva
+                                                    <i class="fa fa-check-circle me-2"></i>Confirmar Reserva
                                                 </button>
                                                 
                                                 <a href="{{ route('catalog.products') }}" class="btn btn-outline-secondary btn-sm py-2">

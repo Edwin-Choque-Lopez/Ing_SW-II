@@ -100,7 +100,7 @@
                     <p class="text-muted mb-3 small">{{ $institution->email }}</p>
                     <p class="mb-0">
                         <!-- Botón interactivo que abre el chat de WhatsApp directamente -->
-                        <a href="https://wa.me{{ $institution->phone_whatsapp }}" target="_blank" class="btn btn-success px-4 py-2 rounded-pill fw-bold">
+                        <a href="https://wa.me/{{ $institution->phone_whatsapp }}" target="_blank" class="btn btn-success px-4 py-2 rounded-pill fw-bold">
                             <i class="fab fa-whatsapp me-2"></i>Contactanos por WhatsApp
                         </a>
                     </p>

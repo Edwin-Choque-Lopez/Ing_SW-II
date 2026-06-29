@@ -68,12 +68,47 @@ class CatalogController extends Controller
     }
     public function storeReservation(Request $request)
     {
+        /*  product_id	"5"
+            product-title	"Componente Mecánico de Motor"
+            product-price	"230.00"
+            user_id	"2"
+            code_order	"CAI-00005"
+            product-quantity	"4"
+            submit	"addtocard" 
+        */
+        // 1. VALIDACIÓN DE LOS DATOS DE ENTRADA
+        $request->validate([
+            'product_id'       => 'required|integer|exists:products,id',
+            'product_price'    => 'required|numeric|min:0',
+            'user_id'          => 'required|integer|exists:users,id',
+            'product_quantity' => 'required|integer|gt:0',
+            'submit'           => 'required|string|in:addtocard',
+        ], [
+            'product_id.required'       => 'El producto es obligatorio.',
+            'product_id.integer'        => 'El identificador del producto debe ser un número entero.',
+            'product_id.exists'         => 'El producto seleccionado no existe en nuestro inventario.',
+            'product_price.required'    => 'El precio es obligatorio.',
+            'product_price.numeric'     => 'El precio debe ser un valor numérico.',          
+            'user_id.required'          => 'El usuario es obligatorio.',
+            'user_id.exists'            => 'El cliente especificado no está registrado en el sistema.',                     
+            'product_quantity.required' => 'La cantidad es obligatoria.',
+            'product_quantity.integer'  => 'La cantidad debe ser un número entero.',
+            'product_quantity.gt'       => 'La cantidad ingresada debe ser un número positivo mayor a cero.',
+            'product_quantity.min'      => 'Debe agregar al menos 1 repuesto al carrito.',
+            'submit.in'                 => 'La acción solicitada no es válida.',
+        ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        if ($product->stock < $request->product_quantity) {
+            return redirect()->back()
+                ->with('message', "Solo quedan {$product->stock} unidades disponibles de este producto.");
+        }
+
         $code = $request->code_order;
         if ($code)
         {
             $id_reservation = Reservation::where('code_order',$code)->first()?->id;
-            //return response()->json($id_reservation);
-
         }else{
             $count = Reservation::count(); 
             $nextNumber = $count + 1;
@@ -81,28 +116,27 @@ class CatalogController extends Controller
             $reservation = Reservation::create([
                 'user_id' => $request->input('user_id'),
                 'code_order' => $code_order,
-                'status_id' => 1, 
+                'status_id'   => 1,
                 'notes' => null,
                 'total' => $request->input('product-price'),
                 'booking' => false,
                 'expiry_date' => now()->addDays(7), 
             ]); 
-
             $id_reservation = $reservation->id; 
-            //return response()->json($id_reservation);
         }
 
-        $quantity = (int) $request->input('product-quantity', 0);
-        $price    = (float) $request->input('product-price', 0);
+        $quantity = (int) $request->input('product_quantity', 0);
+        $price    = (float) $request->input('product_price', 0);
 
         $subtotal = $quantity * $price;
         ReservationItem::create([
             'reservation_id' => $id_reservation,
             'product_id' => $request->input('product_id'),
-            'quantity' => $request->input('product-quantity'),
-            'unite_price' => $request->input('product-price'),
+            'quantity' => $request->input('product_quantity'),
+            'unite_price' => $request->input('product_price'),
             'item_subtotal' => $subtotal,
         ]);
+        $product->decrement('stock', $quantity);
         
         return redirect()->route('catalog.products');
     }
@@ -116,6 +150,11 @@ class CatalogController extends Controller
         return view('reservation.shoppingcart',compact('profile','shopping'));
     }
     public function itemDelete(Request $request,$id){
+        $item = ReservationItem::findOrFail($id);
+        $cant = $item->quantity; 
+        $product_id = $item->product_id;
+        $product = Product::findOrFail($product_id);
+        $product->increment('stock', $cant);   
         ReservationItem::destroy($id);
         $code_order = $request->code_order;
         return redirect()->route('shopping.cart', ['code_order' => $code_order]);

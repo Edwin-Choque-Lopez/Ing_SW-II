@@ -29,7 +29,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'oem' => 'required|string|max:255|unique:products,oem',
+            'oem' => 'nullable|string|max:255|unique:products,oem',
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
@@ -75,7 +75,7 @@ class ProductsController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'oem' => 'required|string|max:255|unique:products,oem,' . $id,
+            'oem' => 'nullable|string|max:255|unique:products,oem,' . $id,
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',

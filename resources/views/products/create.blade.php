@@ -31,7 +31,7 @@
                                         <label for="oem" class="form-label">Codigo OEM</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
-                                            <input type="text" id="oem" name="oem" value="{{ old('oem') }}" class="form-control @error('oem') is-invalid @enderror" required>
+                                            <input type="text" id="oem" name="oem" value="{{ old('oem') }}" class="form-control @error('oem') is-invalid @enderror" >
                                             @error('oem')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror

@@ -48,4 +48,10 @@ Route::post('/clients/store',[App\Http\Controllers\ClientsController::class,'sto
 Route::put('/client/edti/{id}',[App\Http\Controllers\ClientsController::class,'updateClient'])->name('client.update');
 Route::delete('/client/delete/{id}',[App\Http\Controllers\ClientsController::class,'clientDestroy'])->name('client.destroy');
 
+Route::post('reservations/search',[App\Http\Controllers\ReservationsController::class,'search'])->name('reservation.search')->middleware('auth');
+Route::get('reservations/status/{id}',[App\Http\Controllers\ReservationsController::class,'index'])->name('reservationId');
+Route::get('reservations/show/{id}',[App\Http\Controllers\ReservationsController::class,'show'])->name('reservation.show');
+Route::get('reservations/edit/{id}',[App\Http\Controllers\ReservationsController::class,'edit'])->name('reservation.edit');
+Route::post('reservations/update/{id}',[App\Http\Controllers\ReservationsController::class,'update'])->name('reservation.update');
+
 Route::resource('/products',App\Http\Controllers\ProductsController::class);
