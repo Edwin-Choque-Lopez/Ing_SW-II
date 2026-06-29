@@ -67,11 +67,9 @@
                                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-sm btn-outline-success" title="Editar">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <form id="delete-form-{{ $reservation->id }}" action="{{ route('products.destroy', $reservation->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete({{ $reservation->id }})"><i class="bi bi-file-earmark-pdf"></i></button>
-                                            </form>
+                                            <a href="{{ route('pdf.showreservation', $reservation->code_order) }}" class="btn btn-outline-danger btn-sm" title="Editar">
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty

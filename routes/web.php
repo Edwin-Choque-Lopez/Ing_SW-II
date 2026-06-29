@@ -12,6 +12,10 @@ Route::post('/reservation/store',[App\Http\Controllers\CatalogController::class,
 Route::get('/reservation/shopping/cart',[App\Http\Controllers\CatalogController::class, 'cart'])->name('shopping.cart');
 Route::post('/reserve', [App\Http\Controllers\CatalogController::class, 'reserve'])->name('reserve');
 Route::delete('/reservation/delete/item/{id}',[App\Http\Controllers\CatalogController::class, 'itemDelete'])->name('item.delete');
+
+Route::get('/reservation/pdf/{code}',[App\Http\Controllers\PdfsController::class, 'pdfreservation'])->name('pdf.reservation');
+Route::get('/reservation/pdf/show/{code}',[App\Http\Controllers\PdfsController::class, 'showpdfreservation'])->name('pdf.showreservation');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

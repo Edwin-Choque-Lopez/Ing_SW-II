@@ -169,8 +169,10 @@ class CatalogController extends Controller
         
         // 4. Guardar los cambios en la base de datos
         $reserve->save();
+        $code = $request->input('code_order');
 
         // 5. Redireccionar al catálogo o a una vista de éxito con un mensaje amigable
-        return redirect()->route('catalog.products');
+        return redirect()->route('pdf.reservation', $code);
+
     }
 }
