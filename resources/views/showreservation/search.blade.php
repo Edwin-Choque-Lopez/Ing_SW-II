@@ -13,6 +13,10 @@
                                 <h2 class="h3 fw-bold mb-3">Reserva {{ $reservation?->code_order ?? 'sin resultados' }}</h2>
                                 <p class="mb-0">Consulta el estado de tu reserva, revisa los productos seleccionados y confirma los datos de tu solicitud.</p>
                             </div>
+                            <div>
+                                <p class="small text-muted mb-1">Observaciones</p>
+                                <p class="mb-0">{{ $reservation->notes ?? 'No se registraron observaciones.' }}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -77,10 +81,7 @@
                                 </div>
 
                                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 border-top pt-3">
-                                    <div>
-                                        <p class="small text-muted mb-1">Observaciones</p>
-                                        <p class="mb-0">{{ $reservation->notes ?? 'No se registraron observaciones.' }}</p>
-                                    </div>
+                                    
                                     <div class="text-md-end">
                                         <p class="small text-muted mb-1">Total estimado</p>
                                         <p class="h4 fw-bold mb-0">Bs. {{ number_format($reservation->total, 2) }}</p>
